@@ -59,6 +59,7 @@ public class ArticleController {
         //用户信息
         User user = userService.getUserById(article.getArticleUserId());
         article.setUser(user);
+        System.out.println(user);
 
         //文章信息
         model.addAttribute("article", article);

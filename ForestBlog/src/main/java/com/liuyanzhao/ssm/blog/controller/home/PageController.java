@@ -70,6 +70,7 @@ public class PageController {
     @RequestMapping(value = "/articleFile")
     public String articleFile(Model model) {
         List<Article> articleList = articleService.listAllNotWithContent();
+
         model.addAttribute("articleList", articleList);
         //侧边栏显示
         //获得热评文章
