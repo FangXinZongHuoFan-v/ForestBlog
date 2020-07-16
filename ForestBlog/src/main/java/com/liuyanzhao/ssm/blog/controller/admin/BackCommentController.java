@@ -128,7 +128,7 @@ public class BackCommentController {
     }
 
     /**
-     * 回复评论提交
+     * 添加回复评论提交
      *
      * @param request
      * @param comment

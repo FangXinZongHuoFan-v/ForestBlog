@@ -4,9 +4,11 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.liuyanzhao.ssm.blog.entity.Article;
 import com.liuyanzhao.ssm.blog.entity.Comment;
+import com.liuyanzhao.ssm.blog.entity.User;
 import com.liuyanzhao.ssm.blog.enums.ArticleStatus;
 import com.liuyanzhao.ssm.blog.mapper.CommentMapper;
 import com.liuyanzhao.ssm.blog.mapper.ArticleMapper;
+import com.liuyanzhao.ssm.blog.mapper.UserMapper;
 import com.liuyanzhao.ssm.blog.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,15 @@ public class CommentServiceImpl implements CommentService {
     @Autowired(required = false)
     private ArticleMapper articleMapper;
 
+    @Autowired(required = false)
+    private UserMapper userMapper;
+
     @Override
     public void insertComment(Comment comment) {
         try {
+            //根据用户邮箱获取用户头像信息
+            User userByEmail = userMapper.getUserByEmail(comment.getCommentAuthorEmail());
+            comment.setCommentAuthorAvatar(userByEmail.getUserAvatar());
             commentMapper.insert(comment);
         } catch (Exception e) {
             e.printStackTrace();
